@@ -15,8 +15,11 @@ def add(movie: str, watched:bool, rating: int):
 def remove(movie: str):
     typer.echo(f"Removing {movie}")
     
+@app.command(short_help="View all movies")
+def view(movie: str):
+    typer.echo("Here are the movies you watched: ")
 
-@app.command()
+@app.command(short_help="Update a movie")
 def update(movie: str, watched: bool, rating: int):
     typer.echo(f"Updating {movie}")
 
