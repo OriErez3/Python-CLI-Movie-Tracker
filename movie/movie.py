@@ -1,4 +1,5 @@
 import datetime
+
 class Movie:
     def __init__(self, movie, watched, rating, date_added=None, date_watched=None, position=None):
         self.movie = movie
