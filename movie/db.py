@@ -33,3 +33,19 @@ def get_all_movies()->List[movie]:
     for result in results:
         movies.append(movie(*result))
     return movie
+
+def delete_movie(position):
+    c.execute("select count(*) from movies")
+    count = c.fetchone()[0]
+
+    with conn: 
+        c.execute("DELETE from movies WHERE position=:position", {"position": position})
+        for pos in range(position+1, count):
+            change_position(pos, pos-1, False)
+
+def change_position(old_position: int, new_position: int, commit=True):
+    c.execute('UPDATE movies SET position = :position_new WHERE position = :position_old',
+              {'position_old': old_position, 'position_new': new_position})
+    if commit:
+        conn.commit()
+
