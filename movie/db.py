@@ -24,3 +24,12 @@ def insert_movie(movie: movie):
     with conn: 
         c.execute('INSERT INTO movies VALUES (:movie, :watched, :rating, :date_added, :date_watched, :position)', 
                   {'movie': movie.movie, 'watched': movie.watched, 'rating': movie.rating, 'date_added': movie.date_added, 'date_watched': movie.date_watched, 'position': movie.position})
+
+
+def get_all_movies()->List[movie]:
+    c.execute("select * from movies")
+    results = c.fetchall()
+    movies = []
+    for result in results:
+        movies.append(movie(*result))
+    return movie
