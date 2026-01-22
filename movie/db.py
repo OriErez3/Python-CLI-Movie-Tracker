@@ -49,3 +49,20 @@ def change_position(old_position: int, new_position: int, commit=True):
     if commit:
         conn.commit()
 
+def update_movie(position: int, movie: str, watched: bool, rating: int, ):
+    with conn:
+        if movie is not None and watched is not None and rating is not None:
+            c.execute("UPDATE movies SET movie = :movie, rating = :rating, WHERE position = :position", 
+                      {"position": position, "movie": movie, "rating": rating})
+        elif movie is not none:
+            c.execute("UPDATE movies SET movie = :movie WHERE position = :position",
+                      {"position": position, "movie": movie})
+        elif rating is not none:
+            c.execute("UPDATE movies SET rating = :rating WHERE position = :position",
+                      {"position": position, "rating": rating})
+        
+
+def watch_movie(position: int):
+    with conn:
+        c.excecute('UPDATE movies SET watched = 2, date_completed = :date_completed WHERE position = :position',
+                   {'position': position, 'date_completed': datetime.datetime.now().isoformat()})
